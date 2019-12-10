@@ -1,4 +1,4 @@
-package com.common.dbutils;
+package com.common.dbUtils;
 
 import com.mongodb.*;
 import com.mongodb.MongoClient;

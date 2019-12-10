@@ -1,6 +1,6 @@
-package com.common.HttpServer;
+package com.common.httpServer;
 
-import com.common.HttpServer.netty.NettyServer;
+import com.common.httpServer.netty.NettyServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
