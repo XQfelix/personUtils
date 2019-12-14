@@ -62,7 +62,8 @@ public class RabbitMQProducer {
 	 * */
     public void sendForSimpleQueue(String queueName, Object sendData) throws IOException, TimeoutException {
         channel.queueDeclare(queueName,false,false,false,null);
-        channel.basicPublish("",queueName,null, RabbitMQProducer.toByteArray(sendData));
+//        channel.basicPublish("",queueName,null, RabbitMQProducer.toByteArray(sendData));
+        channel.basicPublish("",queueName,null, String.valueOf(sendData).getBytes());
         logger.debug("send----->>> " + String.valueOf(sendData));
 //        channel.close();
 //        connection.close();
