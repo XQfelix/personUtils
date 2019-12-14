@@ -154,7 +154,7 @@ public class RabbitMqReceiver extends AbstractReceiver{
 	            public void handleDelivery(String consumerTag, Envelope envelope, BasicProperties properties, byte[] body) throws IOException {
 	                super.handleDelivery(consumerTag, envelope, properties, body);
 	                logger.debug("RabbitMqReceiver------->>>" + RabbitMqReceiver.toObject(body));
-	                rabbitMq.putData(RabbitMqReceiver.toObject(body));
+	                rabbitMq.putData(new String(body,"UTF-8"));
 	                if(ackFlag == false) {
 	                	channel.basicAck(envelope.getDeliveryTag(),false);
 	                }
