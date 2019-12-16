@@ -80,19 +80,21 @@ public class RedisUtil {
     public static void main(String[] args) {
         RedisUtil redisUtil = getInstance("192.168.1.162", 6379, null);
         JSONArray jsonArray = new JSONArray();
-        for (int i = 0; i < 100000; i++) {
+        for (int i = 0; i < 500000; i++) {
             JSONObject obj = new JSONObject();
-            obj.put("name", "asdf"+i);
+            obj.put("name", "name"+i);
+            obj.put("age", i);
+            obj.put("sex", 1);
             jsonArray.add(obj);
         }
 
-        //redisUtil.getList("test");
+        System.out.println(redisUtil.saveList("te2", jsonArray));
 
         //jedis 实现分布式锁
-        Jedis jes = jedisPool.getResource();
-        jes.del("lock");
-        jes.setnx("lock", "1");
-        jes.setnx("lock", "1");
+//        Jedis jes = jedisPool.getResource();
+//        jes.del("lock");
+//        jes.setnx("lock", "1");
+//        jes.setnx("lock", "1");
     }
 
 

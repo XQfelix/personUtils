@@ -28,6 +28,10 @@ public class MemcachedUtil {
         System.out.println("add status:" + fo.get());// 输出执行add方法后的状态
         System.out.println("add - " + mcc.get("memcached"));// 获取键对应的值
 
+        fo = mcc.add("memcached", 10, "add");// 添加
+        System.out.println("add status:" + fo.get());// 输出执行add方法后的状态
+        System.out.println("add - " + mcc.get("memcached"));// 获取键对应的值
+
         fo = mcc.replace("memcached", 10, "memcached replace");
         System.out.println("replace status:" + fo.get());// 输出执行replace方法后的状态
         System.out.println("replace - " + mcc.get("memcached"));// 获取键对应的值
