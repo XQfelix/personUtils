@@ -71,27 +71,31 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
 			String path = httpRequest.uri(); // 获取路径
 			String pathValid = path.split("[?]")[0];
 			HttpMethod method = httpRequest.method();// 获取请求方法
-			
+
 			//针对ajax第一次请求校验
 			if(method.toString().equals("OPTIONS")) {
 				send(ctx, JSON.toJSONString(result), HttpResponseStatus.OK);
 				return;
 			}
-			
-			// 判断请求方法GET/POST
-			if (!reqMth.toUpperCase().equals(method.toString())) {
-				result.put("code", 403);
-				result.put("status", "error");
-				if (HttpMethod.GET.equals(method)) {
-					result.put("data", "Request error, Server limit request method is：" + reqMth.toUpperCase()+ " !!，Parameters of the support:[ application/json OR x-www-form-urlencoded OR text/plain OR multipart/form-data ]");
-					logger.error("Server limit request method is POST, But client request method is GET");
+
+			if(method.toString().equals("PATCH") || method.toString().equals("PUT") || method.toString().equals("DELETE") || method.toString().equals("HEAD") || method.toString().equals("TRACE")){
+				logger.info("restfull request: " + method.toString() + " allow go on");
+			} else {
+				// 判断请求方法GET/POST
+				if (!reqMth.toUpperCase().equals(method.toString())) {
+					result.put("code", 403);
+					result.put("status", "error");
+					if (HttpMethod.GET.equals(method)) {
+						result.put("data", "Request error, Server limit request method is：" + reqMth.toUpperCase()+ " !!，Parameters of the support:[ application/json OR x-www-form-urlencoded OR text/plain OR multipart/form-data ]");
+						logger.error("Server limit request method is POST, But client request method is GET");
+					}
+					if (HttpMethod.POST.equals(method)) {
+						result.put("data", "Request error, Server limit request method is：" + reqMth.toUpperCase() + " !!");
+						logger.error("Server limit request method is GET, But client request method is POST");
+					}
+					send(ctx, JSON.toJSONString(result), HttpResponseStatus.FORBIDDEN);
+					return;
 				}
-				if (HttpMethod.POST.equals(method)) {
-					result.put("data", "Request error, Server limit request method is：" + reqMth.toUpperCase() + " !!");
-					logger.error("Server limit request method is GET, But client request method is POST");
-				}
-				send(ctx, JSON.toJSONString(result), HttpResponseStatus.FORBIDDEN);
-				return;
 			}
 
 			// 校验请求路径是否正确
@@ -105,7 +109,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
 			}
 
 			// GET请求, 若有参数url直接传
-			if (HttpMethod.GET.equals(method)) {
+			if (HttpMethod.GET.equals(method) || HttpMethod.DELETE.equals(method) || HttpMethod.HEAD.equals(method) || HttpMethod.TRACE.equals(method)) {
 				String args = "";
 				Object jsResult = null;
 				String reqParam = getParams(httpRequest);
@@ -158,7 +162,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
 			}
 
 			// POST请求,支持text/plain, application/json, x-www-form-urlencoded, multipart/form-data
-			if (HttpMethod.POST.equals(method)) {
+			if (HttpMethod.POST.equals(method) || HttpMethod.PATCH.equals(method) || HttpMethod.PUT.equals(method)) {
 				String args = "";
 				Object jsResult = null;
 				String bodyParam = getJsonParams(httpRequest);
@@ -189,7 +193,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
 								return;
 							}
 						} else if (strContentType.contains("application/xml") || strContentType.contains("text/xml")) {
-							bodyParam = getJsonParams(httpRequest); 
+							bodyParam = getJsonParams(httpRequest);
 						} else {
 							result.put("code", 505);
 							result.put("status", "error");
@@ -210,7 +214,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
 					logger.error("Client did not  hava headers, Need Add Content-Type property in headers , such as(Content-Type:application/json)");
 					return;
 				}
- 				
+
 
 				try {
 					//engine.put("body", bodyParam);
@@ -265,7 +269,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
 			httpRequest.release();// 释放请求
 		}
 	}
-	
+
 	/*
 	 * 发送的返回值
 	 * @param ctx 返回
