@@ -38,10 +38,7 @@ import java.io.*;
 import java.nio.charset.Charset;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -392,18 +389,25 @@ public class HttpClient extends DefaultHttpClient {
 				.setConnectionRequestTimeout(120000)
 				.setSocketTimeout(120000).build();
 		requestMethod.setConfig(requestConfig);
+		String contentType = "";
 		if (header != null && header.size() > 0) { // 设置请求头
-			header.forEach((key, value) -> {
-				requestMethod.addHeader(key, value.toString());
-			});
+			Iterator it=header.keySet().iterator();
+			while(it.hasNext()){
+				String key=it.next().toString();
+				if (key.toLowerCase().equals("content-type")) {
+					if (String.valueOf(header.get(key)).contains(ContentType.MULTIPART_FORM_DATA.getMimeType())) {
+						contentType = ContentType.MULTIPART_FORM_DATA.getMimeType();
+						continue;
+					}
+				}
+				requestMethod.addHeader(key, header.get(key).toString());
+			}
+		} else {
+			logger.debug("Content-Type is null，Default：application/json");
+			contentType = "application/json";
 		}
 		CloseableHttpResponse httpResponse = null;
-		if (null != param) {
-			String contentType = String.valueOf(header.get("Content-Type"));
-			if (contentType == null) {
-				logger.debug("Content-Type is null，Default：application/json");
-				contentType = "application/json";
-			}
+		if (null != param || ContentType.MULTIPART_FORM_DATA.getMimeType().contains(contentType)) {
 			if (charset == null || charset.equals("")) {charset = "UTF-8";}
 			if(ContentType.APPLICATION_JSON.getMimeType().contains(contentType)){
 				param = (Map<String, Object>)param;
@@ -421,13 +425,15 @@ public class HttpClient extends DefaultHttpClient {
 				}
 			}else if(ContentType.MULTIPART_FORM_DATA.getMimeType().contains(contentType) ||
 					contentType.contains(ContentType.MULTIPART_FORM_DATA.getMimeType())){
-				Map<String, Object> paramTemp = (Map<String, Object>)param;
-				MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-				builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
 				Map<String, ContentBody> reqParam = new HashMap<>();
-				paramTemp.forEach((key, value) -> {
-					reqParam.put(key, new StringBody(value.toString(), ContentType.MULTIPART_FORM_DATA));
-				});
+				MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+				if(null != param){
+					Map<String, Object> paramTemp = (Map<String, Object>) param;
+					builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+					paramTemp.forEach((key, value) -> {
+						reqParam.put(key, new StringBody(value.toString(), ContentType.MULTIPART_FORM_DATA));
+					});
+				}
 				uploadFilePaths.forEach(key -> {
 					File file = new File(key);
 					builder.addPart(file.getName(), new FileBody(file));
