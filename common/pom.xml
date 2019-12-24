@@ -261,6 +261,13 @@
             <artifactId>httpclientutil</artifactId>
             <version>1.0.4</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/net.sf.ehcache/ehcache -->
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+            <version>2.10.6</version>
+        </dependency>
+
     </dependencies>
 
     <build>
