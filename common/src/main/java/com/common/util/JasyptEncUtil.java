@@ -15,7 +15,7 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @ComponentScan({"com.ulisesbocchio.jasyptspringboot.*.**" })
 public class JasyptEncUtil {
-    public static String JASY_SALT = "felix@ygq";
+    public static String JASY_SALT = "dix@Uinnova";
     @Autowired
     private StringEncryptor stringEncryptor;
 
@@ -62,8 +62,8 @@ public class JasyptEncUtil {
 
 
     public static void main(String[] args) {
-        String aa = "asdfasdf";
-        System.out.println(JasyptEncUtil.encrypt(aa));
+        String aa = "T7qKNQWy3mEHHD+tveZsDw==";
+        System.out.println(JasyptEncUtil.decrypt(aa));
     }
 
 
