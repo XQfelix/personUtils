@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">
+
+
+<!-- 磁盘缓存位置 -->
+    <diskStore path="D:\\ehcache"/>
+
+
+    <!-- 默认缓存 -->
+<!--    <defaultCache-->
+<!--            maxEntriesLocalHeap="10000"-->
+<!--            eternal="false"-->
+<!--            timeToIdleSeconds="120"-->
+<!--            timeToLiveSeconds="120"-->
+<!--            maxEntriesLocalDisk="10000000"-->
+<!--            memoryStoreEvictionPolicy="LRU"> &lt;!&ndash; 缓存淘汰策略配置支持 LRU LFU FIFO 三种&ndash;&gt;-->
+<!--        <persistence strategy="localTempSwap"/>-->
+<!--    </defaultCache>-->
+
+    <!-- helloworld缓存 -->
+    <cache name="PersonUtil"
+           maxElementsInMemory="10000"
+           eternal="true"
+           diskPersistent="true"
+           overflowToDisk="true"/>
+
+
+    <!-- 配置参数说明
+        name: Cache的唯一标识
+        maxElementsInMemory: 内存中最大缓存对象书
+        maxEntriesLocalDisk: 磁盘中最大缓存对象数, 若 0 表示为无穷大
+        eternal: Element是否永久有效, 一旦设置了, timeout将不起作用
+        overflowToDisk: 配置此属性, 当Element数量达到内存中最大缓存对象数, 此时会将Element写到磁盘中
+        timeToIdleSeconds: 设置Element在失效前允许的闲置时间, 当element不是永久有效时使用, 可选属性, 默认值是0, 也就是可闲置时间无穷大
+        timeToLiveSeconds: 设置Element在失效前允许存活时间, 最大时间介于创建时间和失效时间之间, 当element不是永久有效时使用, 默认是0, 也就是存活时间无穷大
+        diskPersistent: 是否将缓存数据持久化在磁盘上, 默认false, 当设置为true时, 如果JVM重启, 原来的缓存数据将仍然存在
+        diskExpiryThreadIntervalSeconds: 磁盘失效线程运行时间间隔, 默认是120秒
+        diskSpoolBufferSizeMB: 这个参数设置DiskStore(磁盘缓存)的缓存区大小, 默认是30Mb, 每个Cache都应该有自己一个缓冲区
+        memoryStoreEvictionPolicy: 当达到最大内存限制时候, 清理策略默认是LRU(最近最少使用)、FIFO(先进先出)、LFU(较少使用)
+
+          <searchable keys="true" values="true">
+                <searchAttribute name="id" expression="value.getId()"/>
+                <searchAttribute name="age" expression="value.getAge()"/>
+           </searchable>
+
+        淘汰策略对比
+            LRU: 会存在一次冷数据的批量查询而误淘汰大量热点的数据
+            LFU: 由于起始的频繁值低, 导致最近新添加的数据总会很容易被剔除掉
+            FIFO: 这种算法有其特殊的使用领域, 比如在作业调度, 消息队列等方面
+    -->
+</ehcache>
