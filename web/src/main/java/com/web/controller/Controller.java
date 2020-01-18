@@ -135,6 +135,19 @@ public class Controller {
         return personserviceimpl.getAlldbs();
     }
 
+    /**
+     * CRUD操作
+     *
+     * @param body
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/person/dblist/crud", method = RequestMethod.POST)
+    public String doCrud(@RequestBody byte[] body) throws Exception {
+        return personserviceimpl.doCrud(new String(body, "utf-8"));
+    }
+
+
 
     /**
      * 加密解密/时间转换

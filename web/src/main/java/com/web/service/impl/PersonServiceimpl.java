@@ -118,6 +118,11 @@ public class PersonServiceimpl implements PersonService {
     }
 
     @Override
+    public String doCrud(String param) throws Exception {
+        return null;
+    }
+
+    @Override
     public String encryptUtil(String param) throws Exception {
         Thread.sleep(500);
         JSONObject paramObj = JSONObject.parseObject(param);

@@ -29,6 +29,9 @@ public interface PersonService {
     //加载全部数据源
     public String getAlldbs() throws Exception;
 
+    //CRUD
+    public String doCrud(String param) throws Exception;
+
     //加密解密/时间转换
     public String encryptUtil(String param) throws Exception;
 }

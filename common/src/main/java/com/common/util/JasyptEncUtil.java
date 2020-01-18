@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
 
+
 /**
  * @author GQ.Yin
  * @version 1.0
@@ -15,9 +16,15 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @ComponentScan({"com.ulisesbocchio.jasyptspringboot.*.**" })
 public class JasyptEncUtil {
-    public static String JASY_SALT = "felix@ygq";
+//    public static String JASY_SALT;
     @Autowired
     private StringEncryptor stringEncryptor;
+
+    public JasyptEncUtil(){
+    }
+    public JasyptEncUtil(String aa){
+        System.setProperty("jasypt.encryptor.password", aa);
+    }
 
     @Bean
     private JasyptEncUtil getJasyptEncryptorMain(){
@@ -40,8 +47,8 @@ public class JasyptEncUtil {
      * @param input
      * @return
      */
-    public static String encrypt(String input){
-        System.setProperty("jasypt.encryptor.password", JasyptEncUtil.JASY_SALT);
+    public String encrypt(String input){
+//        System.setProperty("jasypt.encryptor.password", JASY_SALT);
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(JasyptEncUtil.class);
         JasyptEncUtil jasyMain = (JasyptEncUtil)applicationContext.getBean("jasyptEncUtil");
         return jasyMain.enc(input);
@@ -51,8 +58,8 @@ public class JasyptEncUtil {
      * @param input
      * @return
      */
-    public static String decrypt(String input){
-        System.setProperty("jasypt.encryptor.password", JasyptEncUtil.JASY_SALT);
+    public String decrypt(String input){
+//        System.setProperty("jasypt.encryptor.password", JasyptEncUtil.JASY_SALT);
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(JasyptEncUtil.class);
         JasyptEncUtil jasyMain = (JasyptEncUtil)applicationContext.getBean("jasyptEncUtil");
         return jasyMain.dec(input);
@@ -62,8 +69,10 @@ public class JasyptEncUtil {
 
 
     public static void main(String[] args) {
-        String aa = "asdfasdf";
-        System.out.println(JasyptEncUtil.encrypt(aa));
+        JasyptEncUtil jeu = new JasyptEncUtil("dix@Uinnova");
+        String aa = "6P2LNQZI6IAbZ7u+XmWIAg==";
+        System.out.println(jeu.decrypt(aa));
+
     }
 
 
