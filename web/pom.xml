@@ -93,6 +93,21 @@
                 </configuration>
             </plugin>
             <plugin>
+<<<<<<< HEAD
+=======
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <fork>true</fork>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>none</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+>>>>>>> 0309382ce2657623fce6e46e7b588607138441bc
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>3.1.1</version>
                 <executions>

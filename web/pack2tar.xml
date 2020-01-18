@@ -12,7 +12,11 @@
 			<outputDirectory>conf</outputDirectory>
 		</fileSet> -->
 		<fileSet>
+<<<<<<< HEAD
 			<directory>src/main/resources</directory>
+=======
+			<directory>src/test/resources</directory>
+>>>>>>> 0309382ce2657623fce6e46e7b588607138441bc
 			<excludes>
 				<exclude>application.properties</exclude>
 				<exclude>application-dev.properties</exclude>
@@ -20,6 +24,7 @@
 			<outputDirectory>conf</outputDirectory>
 		</fileSet>
 		<fileSet>
+<<<<<<< HEAD
 			<directory>src/bin</directory>
 			<outputDirectory>bin</outputDirectory>
 		</fileSet>
@@ -30,6 +35,31 @@
 		<fileSet>
 			<directory>src/upload</directory>
 			<outputDirectory>upload</outputDirectory>
+=======
+			<directory>../dip/src/test/resources</directory>
+			<excludes>
+				<exclude>log4j.properties</exclude>
+				<exclude>dixssl.jks</exclude>
+			</excludes>
+			<outputDirectory>conf</outputDirectory>
+		</fileSet>
+		<fileSet>
+			<directory>../dip/src/test/resources</directory>
+			<excludes>
+				<exclude>log4j.properties</exclude>
+				<exclude>dipconfig*</exclude>
+				<exclude>application*</exclude>
+			</excludes>
+			<outputDirectory>lib</outputDirectory>
+		</fileSet>
+		<fileSet>
+			<directory>../dip/src/test/resources</directory>
+			<excludes>
+				<exclude>log4j.properties</exclude>
+				<exclude>dixssl.jks</exclude>
+			</excludes>
+			<outputDirectory>bin</outputDirectory>
+>>>>>>> 0309382ce2657623fce6e46e7b588607138441bc
 		</fileSet>
 		<fileSet>
 			<directory>src/main/webapp</directory>

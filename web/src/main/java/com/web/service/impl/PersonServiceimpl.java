@@ -2,10 +2,15 @@ package com.web.service.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+<<<<<<< HEAD
 import com.common.util.*;
 import com.web.dao.impl.PersonRedisDao;
 import com.web.service.PersonService;
 import org.apache.commons.codec.digest.DigestUtils;
+=======
+import com.web.dao.impl.PersonRedisDao;
+import com.web.service.PersonService;
+>>>>>>> 0309382ce2657623fce6e46e7b588607138441bc
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -39,7 +44,11 @@ public class PersonServiceimpl implements PersonService {
             return "上传失败，请选择文件";
         }
         String fileName = file.getOriginalFilename();
+<<<<<<< HEAD
         String filePath = System.getProperty("user.dir") + "/upload/";
+=======
+        String filePath = "D://";
+>>>>>>> 0309382ce2657623fce6e46e7b588607138441bc
         File dest = new File(filePath + fileName);
         ;
         try {
@@ -70,12 +79,20 @@ public class PersonServiceimpl implements PersonService {
 
     @Override
     public byte[] downloadFile(String fileName) throws Exception {
+<<<<<<< HEAD
         return getFile(System.getProperty("user.dir") + "/upload/"+fileName);
+=======
+        return getFile("D:/"+fileName);
+>>>>>>> 0309382ce2657623fce6e46e7b588607138441bc
     }
 
     @Override
     public String deleteFile(String fileName, String fileIndex) throws Exception {
+<<<<<<< HEAD
         File file = new File(System.getProperty("user.dir") + "/upload/" +fileName);
+=======
+        File file = new File("D:/"+fileName);
+>>>>>>> 0309382ce2657623fce6e46e7b588607138441bc
         if (file.exists()) {
             file.delete();
         }
@@ -117,6 +134,7 @@ public class PersonServiceimpl implements PersonService {
         return retArr.toJSONString();
     }
 
+<<<<<<< HEAD
     @Override
     public String encryptUtil(String param) throws Exception {
         Thread.sleep(500);
@@ -181,6 +199,8 @@ public class PersonServiceimpl implements PersonService {
         return ret;
     }
 
+=======
+>>>>>>> 0309382ce2657623fce6e46e7b588607138441bc
 
     private byte[] getFile(String fileName) throws Exception {
         byte[] ret = new byte[]{};

@@ -31,11 +31,19 @@ public class PersonCache {
     public void init() {
 //        // 关闭tomcat时增加删除回调的钩子
 //        System.setProperty(net.sf.ehcache.CacheManager.ENABLE_SHUTDOWN_HOOK_PROPERTY,"true");
+<<<<<<< HEAD
         URL url = getClass().getResource("/ehcache.xml");
         if(manager==null){
 //            manager = CacheManager.create("D:/gitPerson/personUtils/web/src/main/resources/ehcache.xml");
           manager = new CacheManager(url);
           cache = manager.getCache("PersonUtil");
+=======
+//        URL url = getClass().getResource("/ehcache.xml");
+        if(manager==null){
+            manager = CacheManager.create("D:/gitPerson/personUtils/web/src/main/resources/ehcache.xml");
+//          manager = new CacheManager(url);
+            cache = manager.getCache("PersonUtil");
+>>>>>>> 0309382ce2657623fce6e46e7b588607138441bc
         }
     }
 

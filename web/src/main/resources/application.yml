@@ -14,9 +14,15 @@ spring:
 
   redis:
     database: 0
+<<<<<<< HEAD
     host: 39.105.35.188
     port: 6397
     password: ygq123456
+=======
+    host: 127.0.0.1
+    port: 6379
+    password:
+>>>>>>> 0309382ce2657623fce6e46e7b588607138441bc
     timeout: 10000
     jedis:
       pool:

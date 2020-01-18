@@ -20,7 +20,7 @@ public class TestEhcache {
         // 1. 创建缓存管理器(通过读取xml配置文件获取配置)
         CacheManager cacheManager = CacheManager.create("./src/main/resources/ehcache.xml");
         //或者通过编程式实现
-//        Cache cache = manager.getCache("catchname");
+//        Cache cache = manager.getCach e("catchname");
 //        CacheConfiguration config = cache.getCacheConfiguration();
 //        config.setTimeToIdleSeconds(60);
 //        config.setTimeToLiveSeconds(120);

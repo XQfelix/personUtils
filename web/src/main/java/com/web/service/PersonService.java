@@ -28,7 +28,10 @@ public interface PersonService {
     public String deleteDB(String dbIndex) throws Exception;
     //加载全部数据源
     public String getAlldbs() throws Exception;
+<<<<<<< HEAD
 
     //加密解密/时间转换
     public String encryptUtil(String param) throws Exception;
+=======
+>>>>>>> 0309382ce2657623fce6e46e7b588607138441bc
 }
