@@ -1,8 +1,13 @@
 package com.web.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+import com.common.dbutils.DbUtil;
+>>>>>>> utils1210
 import com.common.util.*;
 import com.web.dao.impl.PersonRedisDao;
 import com.web.service.PersonService;
@@ -20,6 +25,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author GQ.Yin
@@ -135,6 +142,61 @@ public class PersonServiceimpl implements PersonService {
     }
 
 <<<<<<< HEAD
+    @Override
+    public String doCrud(String param) throws Exception {
+        String ret;
+        JSONObject paramObj = JSONObject.parseObject(param);
+        //初始化数据源
+        DbUtil db = new DbUtil(paramObj.getString("dbtype").toUpperCase(), paramObj.getString("dbusername"), paramObj.getString("dbpassword"), paramObj.getString("dburl"));
+        String paramSql = paramObj.getString("dbsql").trim();
+        String paramSqlLower = paramObj.getString("dbsql").trim().toLowerCase();
+        if(paramSqlLower.indexOf("update")!=-1 || paramSqlLower.indexOf("delete")!=-1 || paramSqlLower.indexOf("insert")!=-1){
+            ret = db.update(paramSql)? "true" : "false";
+        }else{
+           List<Map<String, Object>> retlist = db.query(paramSql);
+           if(retlist != null && retlist.size()>0){
+               ret = JSON.toJSONString(retlist);
+           }else{
+               ret = "false";
+           }
+        }
+        return ret;
+    }
+
+    @Override
+    public String doConnect(String param) throws Exception {
+        String ret;
+        JSONObject paramObj = JSONObject.parseObject(param);
+        //初始化数据源
+        DbUtil db = new DbUtil(paramObj.getString("dbtype").toUpperCase(), paramObj.getString("dbusername"), paramObj.getString("dbpassword"), paramObj.getString("dburl"));
+        String sql = "";
+        switch (paramObj.getString("dbtype").toUpperCase()) {
+            case "MYSQL":
+                sql = "select 1";
+                break;
+            case "ORACLE":
+                sql = "select 1 from dual";
+                break;
+            case "DB2":
+                sql = "select 1 from sysibm.sysdummy1";
+                break;
+            case "SYBASE":
+                break;
+            case "SQLSERVER":
+                sql = "select 1";
+                break;
+            case "POSTGRESQL":
+                sql = "select version()";
+                break;
+            case "DM":
+                break;
+            default:
+                break;
+        }
+        ret = db.query(sql).toString();
+        return ret;
+    }
+
     @Override
     public String encryptUtil(String param) throws Exception {
         Thread.sleep(500);
