@@ -147,6 +147,18 @@ public class Controller {
         return personserviceimpl.doCrud(new String(body, "utf-8"));
     }
 
+    /**
+     * 测试连接操作
+     *
+     * @param body
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/person/dblist/connect", method = RequestMethod.POST)
+    public String doConnect(@RequestBody byte[] body) throws Exception {
+        return personserviceimpl.doConnect(new String(body, "utf-8"));
+    }
+
 
 
     /**

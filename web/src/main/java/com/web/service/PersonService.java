@@ -31,6 +31,8 @@ public interface PersonService {
 
     //CRUD
     public String doCrud(String param) throws Exception;
+    //连接测试
+    public String doConnect(String param) throws Exception;
 
     //加密解密/时间转换
     public String encryptUtil(String param) throws Exception;

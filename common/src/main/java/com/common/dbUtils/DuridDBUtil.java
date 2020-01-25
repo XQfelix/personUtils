@@ -47,6 +47,8 @@ public class DuridDBUtil {
 			dataSource.setMaxWait(60000);
 			dataSource.setPoolPreparedStatements(true);
 			dataSource.setMaxPoolPreparedStatementPerConnectionSize(20);
+			dataSource.setConnectionErrorRetryAttempts(0);
+			dataSource.setBreakAfterAcquireFailure(true);
 			switch (dbType) {
 			case "MYSQL":
 				dataSource.setValidationQuery("select 1");
