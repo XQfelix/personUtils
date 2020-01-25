@@ -5,24 +5,18 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: 123456
-    url: jdbc:mysql://39.105.35.188:3306/aliTest?useUnicode=true&characterEncoding=UTF-8
+    username: 
+    password: 
+    url: jdbc:mysql://39.105.35.18:3666/aliTest?useUnicode=true&characterEncoding=UTF-8
     max-active: 20
     min-idle: 10
     initial-size: 10
 
   redis:
     database: 0
-<<<<<<< HEAD
     host: 39.105.35.188
     port: 6397
-    password: ygq123456
-=======
-    host: 127.0.0.1
-    port: 6379
-    password:
->>>>>>> 0309382ce2657623fce6e46e7b588607138441bc
+    password: 
     timeout: 10000
     jedis:
       pool:
