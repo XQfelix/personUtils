@@ -16,11 +16,8 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @ComponentScan({"com.ulisesbocchio.jasyptspringboot.*.**" })
 public class JasyptEncUtil {
-<<<<<<< HEAD
     public static String JASY_SALT = "dix@Uinnova";
-=======
-//    public static String JASY_SALT;
->>>>>>> utils1210
+
     @Autowired
     private StringEncryptor stringEncryptor;
 
@@ -40,7 +37,6 @@ public class JasyptEncUtil {
         String result = stringEncryptor.encrypt(message);
         return result;
     }
-
 
     private String dec(String message){
         String result = stringEncryptor.decrypt(message);
@@ -62,7 +58,7 @@ public class JasyptEncUtil {
      * @param input
      * @return
      */
-    public String decrypt(String input){
+    public static String decrypt(String input){
 //        System.setProperty("jasypt.encryptor.password", JasyptEncUtil.JASY_SALT);
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(JasyptEncUtil.class);
         JasyptEncUtil jasyMain = (JasyptEncUtil)applicationContext.getBean("jasyptEncUtil");
@@ -73,15 +69,9 @@ public class JasyptEncUtil {
 
 
     public static void main(String[] args) {
-<<<<<<< HEAD
         String aa = "T7qKNQWy3mEHHD+tveZsDw==";
         System.out.println(JasyptEncUtil.decrypt(aa));
-=======
         JasyptEncUtil jeu = new JasyptEncUtil("dix@Uinnova");
-        String aa = "6P2LNQZI6IAbZ7u+XmWIAg==";
-        System.out.println(jeu.decrypt(aa));
-
->>>>>>> utils1210
     }
 
 
