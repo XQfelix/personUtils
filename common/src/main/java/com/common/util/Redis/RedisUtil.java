@@ -78,9 +78,9 @@ public class RedisUtil {
 
 
     public static void main(String[] args) {
-        RedisUtil redisUtil = getInstance("192.168.1.162", 6379, null);
+        RedisUtil redisUtil = getInstance("127.0.0.1", 6379, null);
         JSONArray jsonArray = new JSONArray();
-        for (int i = 0; i < 500000; i++) {
+        for (int i = 0; i < 500; i++) {
             JSONObject obj = new JSONObject();
             obj.put("name", "name"+i);
             obj.put("age", i);
