@@ -16,7 +16,7 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <poi-versioon>4.1.0</poi-versioon>
+        <poi-versioon>4.1.1</poi-versioon>
         <axis2.version>1.7.9</axis2.version>
     </properties>
 
